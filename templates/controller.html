@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form action="#" >
+ <input type="submit" class="btn" value="generate npc list" name="createnpc" >
+    {% csrf_token %}
+</form>
+</br>
+<form action="#">
+ <input type="submit" class="btn" value="generate hardware" name="generatehardware">
+{% csrf_token %}
+</form>
+</br>
+<form action="#">
+ <input type="submit" class="btn" value="generate type softs" name="generatetypesofts">
+</form>
+</br>
+
+<form action="#">
+ <input type="submit" class="btn" value="generate softs bots" name="generatesoftsbots">
+</form>
+</br>
+
+
+
+{% endblock %}

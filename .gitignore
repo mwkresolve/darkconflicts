@@ -1,0 +1,12 @@
+__pycache__
+
+*.*~
+
+*.pyc
+
+.env
+
+.idea
+
+db.sqlite3
+.sqlite3
