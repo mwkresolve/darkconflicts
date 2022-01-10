@@ -26,17 +26,22 @@ label {
 
 
 
-{% block title %}Loja Python{% endblock %}
+
 
 {% block content %}
 
 
 
-<label for="logarea">LOG</label></br>
 
-<textarea id="logarea" name="logarea"
+
+
+    <form method="post">
+    {% csrf_token %}
+    <textarea id="logarea" name="logarea"
           rows="5" cols="70"> {{ mylog }}
 </textarea>
+        <button>edit log</button>
+</form>
 
 
 
