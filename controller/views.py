@@ -1,13 +1,22 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from controller.models import User, Hardware, TypeSofts, Software
+from controller.models import User, Hardware, TypeSofts, Software, UserStats, Log, HistUsersCurrent
 from my_tools.functions import *
 import json
 
-
-class HomePageView(TemplateView):
-    template_name = "home.html"
-
+def HomePageView(request):
+    try:
+        if not request.user.stats_game:
+            print('criando stats game')
+            UserStats.objects.create(user=request.user)
+            Log.objects.create(userid=request.user)
+            Hardware.objects.create(userid=request.user)
+            HistUsersCurrent.objects.create(userid=request.user)
+            User.objects.update(stats_game=True)
+            print('stats criada')
+    except:
+        print('jogador não logado')
+    return render(request, "home.html")
 
 class Controller(TemplateView):
     template_name = 'controller.html'

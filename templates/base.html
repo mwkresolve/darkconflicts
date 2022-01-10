@@ -189,6 +189,8 @@
        <main class="container">
         {% block content %}
         {% endblock %}
+
+
     </main>
 
       </p>
@@ -196,6 +198,31 @@
 
   </div>
 </div>
+    {% endif %}
+    {% if not user.is_authenticated %}
+
+
+<div class="content-container">
+
+  <div class="container-fluid">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+       <main class="container">
+        {% block all_auth %}
+        {% endblock %}
+
+
+    </main>
+
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+
     {% endif %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

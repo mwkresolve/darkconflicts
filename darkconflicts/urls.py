@@ -21,10 +21,10 @@ from django.contrib.auth.decorators import login_required
 from gameranking.views import RankingPageView
 from gamelogfile.views import LogPageView
 urlpatterns = [
+    path("accounts/", include("allauth.urls")),
     path("log/", LogPageView.as_view(), name="gamelogfile"),
     path("ranking/", RankingPageView.as_view(), name="gameranking"),
-    path("", include("allauth.urls")),
     path('admin/', admin.site.urls),
     path('controller/', login_required(Controller.as_view()), name='controller'),
-    path('', HomePageView.as_view(), name='home'),
+    path('', login_required(HomePageView), name='home'),
 ]
