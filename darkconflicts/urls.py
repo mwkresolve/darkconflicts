@@ -19,8 +19,9 @@ from django.urls import path, include
 from controller.views import Controller, HomePageView
 from django.contrib.auth.decorators import login_required
 from gameranking.views import RankingPageView
-
+from gamelogfile.views import LogPageView
 urlpatterns = [
+    path("log/", LogPageView.as_view(), name="gamelogfile"),
     path("ranking/", RankingPageView.as_view(), name="gameranking"),
     path("", include("allauth.urls")),
     path('admin/', admin.site.urls),
