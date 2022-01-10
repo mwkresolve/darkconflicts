@@ -28,4 +28,5 @@ urlpatterns = [
     path('controller/', login_required(Controller.as_view()), name='controller'),
     path('', login_required(HomePageView), name='home'),
     path("", include("gamesoftware.urls")),
+    path("", include("gamehardware.urls")),
 ]

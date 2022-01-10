@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{%for hardw in user_hardware%}
+========</br>
+Processador = {{ hardw.cpu }}</br>
+Disco Rígido = {{ hardw.hdd }}</br>
+Memória ram = {{ hardw.ram }}</br>
+========</br>
+
+{% endfor %}
+
+{% endblock %}
