@@ -18,8 +18,10 @@ from django.template.defaulttags import url
 from django.urls import path, include
 from controller.views import Controller, HomePageView
 from django.contrib.auth.decorators import login_required
+from gameranking.views import RankingPageView
 
 urlpatterns = [
+    path("ranking/", RankingPageView.as_view(), name="gameranking"),
     path("", include("allauth.urls")),
     path('admin/', admin.site.urls),
     path('controller/', login_required(Controller.as_view()), name='controller'),
