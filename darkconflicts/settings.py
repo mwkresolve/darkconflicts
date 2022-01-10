@@ -41,6 +41,12 @@ INSTALLED_APPS = [
     'crispy_forms',
     # local
     'controller',
+    'gamesoftware',
+    'gamehardware',
+    'gamelogfile',
+    'gamehackeddb',
+    'gameinternet',
+    'gameranking',
     # 3d party
     "allauth",
     "allauth.account",
