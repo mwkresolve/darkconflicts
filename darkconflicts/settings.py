@@ -133,6 +133,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -160,3 +161,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 ACCOUNT_LOGOUT_ON_GET = True
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
