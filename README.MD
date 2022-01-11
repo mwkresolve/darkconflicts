@@ -1,7 +1,4 @@
-
-Minha versão do sistema desenvolvido para o curso de Django da Jornada de Cursos do CITI-CIN/UFPE. 
-O Djangram é uma rede social inspirada no Instagram e desenvolvida utilizando o framework Django, HTML e CSS.
-
+Projeto de um jogo onde o jogador será um hacker, tera que fazer missoes, instalar virus e gerar dinheiro e bitcoin, deixar seu servidor mais forte,  destruir servidores(bots do jogo e jogadores reais)
 
 ## Como utilizar
 * Clona repositório
