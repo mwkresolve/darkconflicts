@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.template.defaulttags import url
-from django.urls import path, include
+from django.urls import path, include, re_path
 from controller.views import Controller, HomePageView
 from django.contrib.auth.decorators import login_required
 from gameranking.views import RankingPageView

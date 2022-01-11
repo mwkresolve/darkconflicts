@@ -127,6 +127,12 @@ class Software(models.Model):
     softhidden = models.BooleanField()  # Field name made lowercase.
     softhiddenwith = models.BigIntegerField(default=0)  # Field name made lowercase.
 
+class HackedDatabase(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    iphacked = models.CharField(unique=True, max_length=20)
+
+
+
 
 
 
