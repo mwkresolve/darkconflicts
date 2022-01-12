@@ -3,7 +3,7 @@ from datetime import timedelta, date, datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from controller.models import User, Processes, Software, TypeSofts
+from controller.models import User, Processes, Software, TypeSofts, HackedDatabase
 
 
 def GenerateIpUrl():
@@ -30,12 +30,23 @@ def IpView(request):
     ip_victim = re.findall(regex_ip, request.get_full_path())[0]
     if request.method == "POST":
         if request.POST["tryhack"]:
-            endtime = datetime.now() + timedelta(seconds=10)
-            Processes.objects.create(userid=request.user,
-                                     action=2,
-                                     timestart=datetime.now(),
-                                     timeend=endtime, iptryhack=ip_victim)
-            return HttpResponseRedirect("/task/")
+            hackiptaskactive = len(Processes.objects.filter(userid=request.user, completed=False, iptryhack=ip_victim))
+            # usuario só pode ter 1 task ativa para completar
+            if hackiptaskactive > 0:
+                # criar msg de aviso no front que ja existe uma tarefa em andamento
+                return HttpResponseRedirect("/internet/")
+            verif_ip_ind_db = len(
+                HackedDatabase.objects.filter(userid=request.user, iphacked=ip_victim))
+            if verif_ip_ind_db > 0:
+                # criar msg de aviso no front que o ip ja esta no banco de dados
+                return HttpResponseRedirect("/internet/")
+            else:
+                endtime = datetime.now() + timedelta(seconds=10)
+                Processes.objects.create(userid=request.user,
+                                         action=2,
+                                         timestart=datetime.now(),
+                                         timeend=endtime, iptryhack=ip_victim)
+                return HttpResponseRedirect("/task/")
     if ip_victim not in GenerateIpUrl():
         msgerro = f'O IP {ip_victim} não existe'
         return render(request, "internetip.html", {'msgerro': msgerro})
