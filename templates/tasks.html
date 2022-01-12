@@ -3,18 +3,26 @@
 
 {% block content %}
 
+{% if sem_task == 0 %}
+sem processos no momento!
+{% endif %}
+
 {% for task in tasks %}
     {% if not task.completed %}
-        </br></br></br>
+        </br><hr />
         TASK
         </br>
             {% now "Y-m-d H:i:s" as nowdate %}
             action: {% if task.action == 1 %}
              Edit local hosting</br>
+            {% elif task.action == 2 %}
+             Hacking ip</br>
+
             {% endif %}
 
             {% if nowdate > task.timeend|date:"Y-m-d H:i:s" %}
-                <form method="post" action="/taskcompleteid={{ task.id }}">
+                <form method="post" action="/taskcompleteid={{ task.id }} "
+                >
                     {% csrf_token %}
                         <button>Complete</button>
                 </form>
@@ -22,6 +30,7 @@
             {% else %}
             finish at : {{ task.timeend|date:"Y-m-d H:i:s" }}
             {% endif %}
+
     {% endif %}
 
 
@@ -31,5 +40,6 @@
 
 
 {% endfor %}
+
 
 {% endblock %}

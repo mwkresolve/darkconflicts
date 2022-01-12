@@ -33,8 +33,10 @@
 </div>
 
 
-<form action="#" >
- <input type="submit" class="btn" value="Try hack" name="hackip" >
+<form method="post" name="hackip" >
+ <input type="submit" value="Try hack" name='tryhack'>
     {% csrf_token %}
 </form>
+
+{{ msgbroke|safe }}
 {% endblock %}

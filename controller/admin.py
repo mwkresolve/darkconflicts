@@ -1,14 +1,18 @@
 from django.contrib import admin
 from .models import *
 
+@admin.register(HackedDatabase)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('userid', 'iphacked')
+
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'bio', 'gamepass', 'gameip', 'net', 'money')
+    list_display = ('username', 'bio', 'gamepass', 'gameip', 'net', 'money', 'ipconnected')
 
 @admin.register(Processes)
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('userid', 'action', 'timestart', 'timeend', 'logedit', 'completed')
+    list_display = ('userid', 'action', 'timestart', 'timeend', 'logedit', 'iptryhack', 'completed')
 
 
 @admin.register(Hardware)

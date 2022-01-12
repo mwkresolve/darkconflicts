@@ -52,9 +52,9 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-
-
 ]
+
+
 AUTH_USER_MODEL = 'controller.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

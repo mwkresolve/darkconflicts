@@ -12,6 +12,7 @@ class SoftwareView(TemplateView):
         typesoft = TypeSofts.objects.filter()
         print('------------------------------------')
         print(typesoft)
+
         print('------------------------------------')
 
         return render(request, self.template_name, {'softwares': softs, 'typesofts':typesoft})

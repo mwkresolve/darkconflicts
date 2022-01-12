@@ -13,6 +13,7 @@ class User(AbstractUser):
     net = models.IntegerField(default=1)
     money = models.IntegerField(default=10000)
     isnpc = models.BooleanField(default=False)
+    ipconnected = models.CharField(max_length=20,  default='')
 
     def __str__(self):
         return self.username
@@ -139,4 +140,5 @@ class Processes(models.Model):
     timestart = models.DateTimeField()
     timeend = models.DateTimeField()
     logedit = models.TextField(default='')
+    iptryhack = models.CharField(max_length=20, default='')
     completed = models.BooleanField(default=False)
