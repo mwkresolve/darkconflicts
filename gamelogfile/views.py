@@ -12,11 +12,20 @@ class LogPageView(TemplateView):
         for a in my_log:
             log = dict(a)['text']
             return render(request, self.template_name, {'mylog': log})
+
     def post(self, request):
-        endtime = datetime.now() + timedelta(seconds=10)
-        current_log = request.POST.get('logarea')
-        Processes.objects.create(userid=request.user,
-                                action=1,
-                                timestart=datetime.now(),
-                                timeend=endtime, logedit=current_log)
-        return HttpResponseRedirect("/task/")
+        if request.method == "POST":
+            if request.POST["editlog"]:
+                editlogactive = len(Processes.objects.filter(userid=request.user, action=1,completed=False))
+                # usuario só pode ter 1 task ativa para completar
+                if editlogactive > 0:
+                    # criar msg de aviso no front que ja existe uma tarefa em andamento
+                    return HttpResponseRedirect("/log/")
+                else:
+                    endtime = datetime.now() + timedelta(seconds=10)
+                    current_log = request.POST.get('logarea')
+                    Processes.objects.create(userid=request.user,
+                                            action=1,
+                                            timestart=datetime.now(),
+                                            timeend=endtime, logedit=current_log)
+                    return HttpResponseRedirect("/task/")
