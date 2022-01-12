@@ -6,6 +6,11 @@ from .models import *
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'bio', 'gamepass', 'gameip', 'net', 'money')
 
+@admin.register(Processes)
+class LogAdmin(admin.ModelAdmin):
+    list_display = ('userid', 'action', 'timestart', 'timeend', 'logedit', 'completed')
+
+
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
     list_display = ('serverid','userid', 'cpu', 'hdd', 'ram')

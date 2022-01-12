@@ -52,10 +52,19 @@
  <font color="orangered">{{ soft.softsize }}</font>
 </td>
 <td style="text-align: center">
-<a href="?id=1009047" class="tip-top"><span class="he16-software_info"></span></a>
-<a href="?action=uninstall&amp;id=1009047" class="tip-top"><span class="he16-stop"></span></a>
-<span class="he16-transparent"></span>
-<a href="?action=del&amp;id=1009047" class="tip-top"><span class="he16-bin"></span></a>
+
+<form method="post">
+    {% csrf_token %}
+ <button>download</button>
+</form>
+ <form method="post">
+    {% csrf_token %}
+ <button>excluir</button>
+</form>
+
+
+
+
 </td>
 </tr>
 

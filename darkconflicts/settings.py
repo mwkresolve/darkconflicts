@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'gamehackeddb',
     'gameinternet',
     'gameranking',
+    'gameusertasks',
     # 3d party
     "allauth",
     "allauth.account",
@@ -125,7 +126,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,4 +162,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 ACCOUNT_LOGOUT_ON_GET = True
+
+
 

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% for task in tasks %}
+    {% if not task.completed %}
+        </br></br></br>
+        TASK
+        </br>
+            {% now "Y-m-d H:i:s" as nowdate %}
+            action: {% if task.action == 1 %}
+             Edit local hosting</br>
+            {% endif %}
+
+            {% if nowdate > task.timeend|date:"Y-m-d H:i:s" %}
+                <form method="post" action="/taskcompleteid={{ task.id }}">
+                    {% csrf_token %}
+                        <button>Complete</button>
+                </form>
+
+            {% else %}
+            finish at : {{ task.timeend|date:"Y-m-d H:i:s" }}
+            {% endif %}
+    {% endif %}
+
+
+
+
+
+
+
+{% endfor %}
+
+{% endblock %}

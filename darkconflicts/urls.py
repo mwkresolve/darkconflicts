@@ -24,6 +24,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path("", include("gameusertasks.urls")),
     path("", include("gamesoftware.urls")),
     path("", include("gamehardware.urls")),
     path("", include("gameinternet.urls")),

@@ -133,7 +133,10 @@ class HackedDatabase(models.Model):
 
 
 
-
-
-
-
+class Processes(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    action = models.IntegerField()
+    timestart = models.DateTimeField()
+    timeend = models.DateTimeField()
+    logedit = models.TextField(default='')
+    completed = models.BooleanField(default=False)
