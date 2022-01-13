@@ -13,7 +13,7 @@ class User(AbstractUser):
     net = models.IntegerField(default=1)
     money = models.IntegerField(default=10000)
     isnpc = models.BooleanField(default=False)
-    ipconnected = models.CharField(max_length=20,  default='')
+    ipconnected = models.CharField(max_length=20,  default='off')
 
     def __str__(self):
         return self.username

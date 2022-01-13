@@ -114,6 +114,12 @@
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
+
+                        <font size="3"
+                              face="verdana"
+                              color="white">
+                                IP: {{ user.gameip }}
+                                </font>
                         <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
                     </li>
                     {% else %}
