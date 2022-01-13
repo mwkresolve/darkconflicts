@@ -53,15 +53,19 @@ def IpView(request):
     else:
         # verificar se é npc
         info_victim = User.objects.filter(gameip=ip_victim).values('isnpc', 'username', 'gamepass')
+        verif_in_db = len(HackedDatabase.objects.filter(userid=request.user, iphacked=ip_victim))
+        pwvictim = ''
         for info in info_victim:
+            if verif_in_db > 0:
+                pwvictim = info['gamepass']
             if info['isnpc']:
                 text_npc = f'Olá invasor, meu nome é {info["username"]}.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
                            f'\nMas espera ai, sera que você consegue me invadir?'
                 print(info['username'])
                 return render(request, "internethack.html", {'ip_victim': ip_victim,
-                                                             'text_npc': text_npc})
+                                                             'text_npc': text_npc, 'pwvictim': pwvictim} )
             else:
-                return render(request, "internethack.html")
+                return render(request, "internethack.html", {'pwvictim': pwvictim})
 
     return render(request, "internetip.html")
 

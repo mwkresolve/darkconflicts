@@ -36,6 +36,8 @@ def CompleteTask(request):
                     victim = User.objects.filter(gameip=ip_victim).values_list('id')[0][0]
                     softs_victim = Software.objects.filter(userid=victim, softtype_id=2).values_list()
                     maxlvl_hash_victim = softs_victim.aggregate(Max('softversion'))['softversion__max']
+                    if not maxlvl_hash_victim:
+                        maxlvl_hash_victim = 0
                     if maxlvl_crc_user >= maxlvl_hash_victim:
                         HackedDatabase.objects.create(userid=request.user, iphacked=ip_victim)
                         Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
