@@ -67,6 +67,10 @@ def IpView(request):
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
 
         if request.POST.get('tryhack') == 'Try hack':
+            softs_user = Software.objects.filter(userid=request.user, softtype_id=1).values()
+            if not softs_user:
+                # pend avisar que ta sem cracker ativo pra essa ação
+                return HttpResponseRedirect("/internet/")
             hackiptaskactive = len(Processes.objects.filter(userid=request.user, completed=False, iptryhack=ip_victim))
             # usuario só pode ter 1 task ativa para completar
             if hackiptaskactive > 0:
