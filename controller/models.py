@@ -14,6 +14,8 @@ class User(AbstractUser):
     money = models.IntegerField(default=10000)
     isnpc = models.BooleanField(default=False)
     ipconnected = models.CharField(max_length=20,  default='off')
+    log = models.TextField(default=f'operating system created at {timezone.now()}')
+
 
     def __str__(self):
         return self.username
@@ -62,15 +64,7 @@ class Hardware(models.Model):
         return f'serverid = {self.serverid}, userid = {self.userid}'
 
 
-class Log(models.Model):
-    userid = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    text = models.TextField(default=f'operating system created at {timezone.now()}')
-    def __str__(self):
-        return f'log = {self.text}, userid = {self.userid}'
+
 
 class CacheUser(models.Model):
     userid = models.OneToOneField(

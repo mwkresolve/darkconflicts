@@ -4,22 +4,13 @@
 {% block content %}
 
 <form action="#" >
- <input type="submit" class="btn" value="generate npc list" name="createnpc" >
+ <input type="submit" class="btn" value="generate game" name="creategame" >
     {% csrf_token %}
 </form>
 </br>
-<form action="#">
- <input type="submit" class="btn" value="generate hardware" name="generatehardware">
-{% csrf_token %}
-</form>
 </br>
 <form action="#">
- <input type="submit" class="btn" value="generate type softs" name="generatetypesofts">
-</form>
-</br>
-
-<form action="#">
- <input type="submit" class="btn" value="generate softs bots" name="generatesoftsbots">
+ <input type="submit" class="btn" value="generate bots" name="createnpc">
 </form>
 </br>
 

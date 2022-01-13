@@ -1,17 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from controller.models import Log, Processes
+from controller.models import  Processes, User
 from datetime import timedelta, date, datetime
 
 class LogPageView(TemplateView):
     template_name = "log.html"
 
     def get(self, request):
-        my_log = Log.objects.filter(userid=request.user).values()
-        for a in my_log:
-            log = dict(a)['text']
-            return render(request, self.template_name, {'mylog': log})
+        my_log = User.objects.filter(username=request.user).values('log')[0]['log']
+        return render(request, self.template_name, {'mylog': my_log})
 
     def post(self, request):
         if request.method == "POST":

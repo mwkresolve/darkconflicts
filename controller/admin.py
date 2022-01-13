@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'bio', 'gamepass', 'gameip', 'net', 'money', 'ipconnected')
+    list_display = ('username', 'bio', 'gamepass', 'gameip', 'net', 'money', 'ipconnected', 'log')
 
 @admin.register(Processes)
 class LogAdmin(admin.ModelAdmin):
@@ -19,9 +19,6 @@ class LogAdmin(admin.ModelAdmin):
 class HardwareAdmin(admin.ModelAdmin):
     list_display = ('serverid','userid', 'cpu', 'hdd', 'ram')
 
-@admin.register(Log)
-class LogAdmin(admin.ModelAdmin):
-    list_display = ('userid', 'text')
 
 
 @admin.register(TypeSofts)

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from controller.models import User, Processes, Software, TypeSofts, HackedDatabase
+from controller.functionsdb import disconnect_ip_victim
 
 
 def GenerateIpUrl():
@@ -19,7 +20,7 @@ def disconnectuser(request):
     if ip_connect == 'off':
         return HttpResponseRedirect("/internet/")
     else:
-        User.objects.update(ipconnected='off')
+        disconnect_ip_victim(request.user)
         return HttpResponseRedirect("/internet/")
 
 
@@ -61,7 +62,8 @@ def IpView(request):
                 # pend retornar na tela que qa senha ta errada
                 return HttpResponseRedirect(f"/netip={ip_victim}")
             else:
-                User.objects.update(ipconnected=ip_victim)
+
+                User.objects.filter(username=request.user).update(ipconnected=ip_victim)
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
 
         if request.POST.get('tryhack') == 'Try hack':
