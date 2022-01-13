@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>DATABASE</h1>
+<ul>
+{% for ip in ipshacked %}
+    <li>{{ ip.iphacked }} </li>
+{% empty %}
+    <li>Sem ips no banco de dados</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
