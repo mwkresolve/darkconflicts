@@ -21,10 +21,13 @@ def disconnectuser(request):
         return HttpResponseRedirect("/internet/")
     else:
         disconnect_ip_victim(request.user)
-        return HttpResponseRedirect("/internet/")
+        return HttpResponseRedirect(f"netip={ip_connect}")
 
 
 def IpConnectView(request):
+    if request.method == "POST":
+        if request.POST.get('logout') == 'logout':
+            disconnectuser(request)
     info_user = User.objects.filter(username=request.user).values()
     ip_connect = info_user[0]['ipconnected']
     if ip_connect == 'off':
@@ -67,10 +70,14 @@ def IpView(request):
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
 
         if request.POST.get('tryhack') == 'Try hack':
+
+            if ip_victim == User.objects.filter(username=request.user).values('gameip')[0]['gameip']:
+                # pend criar msg que esta tentando invadir o proprio ip
+                return HttpResponseRedirect(f"/netip={ip_victim}")
             softs_user = Software.objects.filter(userid=request.user, softtype_id=1).values()
             if not softs_user:
                 # pend avisar que ta sem cracker ativo pra essa ação
-                return HttpResponseRedirect("/internet/")
+                return HttpResponseRedirect(f"/netip={ip_victim}")
             hackiptaskactive = len(Processes.objects.filter(userid=request.user, completed=False, iptryhack=ip_victim))
             # usuario só pode ter 1 task ativa para completar
             if hackiptaskactive > 0:
@@ -93,11 +100,15 @@ def IpView(request):
         return render(request, "internetip.html", {'msgerro': msgerro})
     else:
         # verificar se é npc
+        firstip = True if '0.0.0.0' == ip_victim else False
         info_victim = User.objects.filter(gameip=ip_victim).values('isnpc', 'username', 'gamepass')
         verif_in_db = len(HackedDatabase.objects.filter(userid=request.user, iphacked=ip_victim))
         pwvictim = ''
         for info in info_victim:
             if verif_in_db > 0:
+                print('firstip')
+                pwvictim = info['gamepass']
+            if firstip:
                 pwvictim = info['gamepass']
             if info['isnpc']:
                 text_npc = f'Olá invasor, meu nome é {info["username"]}.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
