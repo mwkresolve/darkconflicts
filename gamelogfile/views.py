@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from controller.models import  Processes, User
 from datetime import timedelta, date, datetime
+from controller.functionsdb import *
 
 class LogPageView(TemplateView):
     template_name = "log.html"
@@ -20,7 +21,7 @@ class LogPageView(TemplateView):
                     # criar msg de aviso no front que ja existe uma tarefa em andamento
                     return HttpResponseRedirect("/log/")
                 else:
-                    endtime = datetime.now() + timedelta(seconds=10)
+                    endtime = datetime.now() + timedelta(seconds=3)
                     current_log = request.POST.get('logarea')
                     Processes.objects.create(userid=request.user,
                                             action=1,

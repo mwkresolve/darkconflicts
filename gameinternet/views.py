@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from controller.models import User, Processes, Software, TypeSofts, HackedDatabase
-from controller.functionsdb import disconnect_ip_victim
+from controller.functionsdb import *
+from django.contrib.auth.decorators import login_required
 
 
 def GenerateIpUrl():
@@ -14,6 +15,7 @@ def GenerateIpUrl():
         all_ips_game.append(ip['gameip'])
     return all_ips_game
 
+@login_required
 def disconnectuser(request):
     info_user = User.objects.filter(username=request.user).values()
     ip_connect = info_user[0]['ipconnected']
@@ -21,15 +23,27 @@ def disconnectuser(request):
         return HttpResponseRedirect("/internet/")
     else:
         disconnect_ip_victim(request.user)
-        return HttpResponseRedirect(f"netip={ip_connect}")
+        return HttpResponseRedirect("/internet/")
 
-
+@login_required
 def IpConnectView(request):
-    if request.method == "POST":
-        if request.POST.get('logout') == 'logout':
-            disconnectuser(request)
     info_user = User.objects.filter(username=request.user).values()
     ip_connect = info_user[0]['ipconnected']
+    if request.method == "POST":
+        for valor in request.POST:
+            if 'downsoftid=' in valor:
+                # pend nao deixar baixar se nao estiver espaço suficiente
+                softid = valor.split('=')[1]
+                endtime = datetime.now() + timedelta(seconds=10)
+                Processes.objects.create(userid=request.user,
+                                         action=3,
+                                         timestart=datetime.now(),
+                                         timeend=endtime, softdownload=softid)
+                return HttpResponseRedirect("/task/")
+
+
+        if request.POST.get('logout') == 'logout':
+            disconnectuser(request)
     if ip_connect == 'off':
         return HttpResponseRedirect("/internet/")
     victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
@@ -37,6 +51,7 @@ def IpConnectView(request):
 
     return render(request, "internet_connect_ip_ok.html", {'softs_victim':softs_victim})
 
+@login_required
 def hackip(request, msgbroke, ip_victim):
     info_victim = User.objects.filter(gameip=ip_victim).values('isnpc', 'username', 'gamepass')
     for info in info_victim:
@@ -48,7 +63,7 @@ def hackip(request, msgbroke, ip_victim):
         else:
             return render(request, "internethack.html", {'msgbroke':msgbroke})
 
-
+@login_required
 def IpView(request):
     regex_ip = '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
     info_user = User.objects.filter(username=request.user).values()
@@ -65,8 +80,7 @@ def IpView(request):
                 # pend retornar na tela que qa senha ta errada
                 return HttpResponseRedirect(f"/netip={ip_victim}")
             else:
-
-                User.objects.filter(username=request.user).update(ipconnected=ip_victim)
+                connect_ip_victim(request.user, ip_victim)
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
 
         if request.POST.get('tryhack') == 'Try hack':
@@ -122,7 +136,7 @@ def IpView(request):
     return render(request, "internetip.html")
 
 
-
+@login_required
 def InternetView(request):
             return HttpResponseRedirect("/netip=0.0.0.0")
 
