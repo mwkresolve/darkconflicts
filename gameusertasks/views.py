@@ -1,10 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from controller.models import Processes,  Software, User, HackedDatabase
+from controller.models import Processes,  Software, User, HackedDatabase, TypeSofts
 from django.db.models import Max
 from django.shortcuts import redirect
 from gameinternet.views import hackip
-
+from controller.functionsdb import edit_my_log
 
 def TasksView(request):
     print('chegou tasks')
@@ -25,8 +25,8 @@ def CompleteTask(request):
         for infos in task:
             if not infos['completed']:
                 if infos['action'] == 1: # action editar log
-                    print('acao de editar log')
-                    User.objects.filter(userid=request.user).update(log=infos['logedit'])
+                    edit_my_log(request.user, infos['logedit'])
+                    User.objects.filter(username=request.user).update(log=infos['logedit'])
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                     return HttpResponseRedirect("log/")
                 if infos['action'] == 2:  # tentar hackear ip
@@ -47,6 +47,23 @@ def CompleteTask(request):
                         Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                         msgbroke = """<span style="color: red"> Seu cracker não é bom o suficiente</span>"""
                         return hackip(request, msgbroke, ip_victim)
+                if infos['action'] == 3:  # download soft
+                            # impedir download proprio soft, impedir download soft igual
+                            softdown = Software.objects.filter(id=infos['softdownload']).values()
+                            typeofsoft = TypeSofts.objects.get(id=softdown[0]['softtype_id'])
+                            Software.objects.create(
+                                    userid = request.user,
+                                    softname = softdown[0]['softname'],
+                                    softversion = softdown[0]['softversion'],
+                                    softsize = softdown[0]['softsize'],
+                                    softram = softdown[0]['softram'],
+                                    softtype = typeofsoft)
+                            # download concluido
+                            Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                            return HttpResponseRedirect("/software/")
+
+
+
     else:
         print('esse processo  não é seu')
 

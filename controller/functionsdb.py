@@ -71,9 +71,7 @@ def create_softs_npc():
     for bot in npcList:
         user = User.objects.get(username=npcList[bot]['nome'])
         for softs in npcList[bot]['softs']['soft'].values():
-            print(user)
-            print(softs['type'])
-            type = TypeSofts.objects.get(type=softs['type'])
+            typesoft = TypeSofts.objects.get(type=softs['type'])
             version = softs['version']
             softsize = 25
             softram = 10
@@ -81,6 +79,26 @@ def create_softs_npc():
                                     softversion=version,
                                     softsize=softsize,
                                     softram=softram,
-                                    softtype=type, softhidden=0, softhiddenwith=0)
+                                    softtype=typesoft, softhidden=0, softhiddenwith=0)
         softsize += 100
         softram += 25
+
+def update_reputation(user, sumreputation):
+    old_rep = HistUsersCurrent.objects.filter(userid=user).values('reputation')[0]['reputation']
+    new_rep = old_rep + sumreputation
+    HistUsersCurrent.objects.filter(userid=user).update(reputation=new_rep)
+    print('somou')
+
+
+def disconnect_ip_victim(user):
+    User.objects.filter(username=user).update(ipconnected='off')
+    update_reputation(user, 1)
+
+def connect_ip_victim(user, ip):
+    User.objects.filter(username=user).update(ipconnected=ip)
+    update_reputation(user, 1)
+
+def edit_my_log(user, logedit):
+    User.objects.filter(username=user).update(log=logedit)
+    update_reputation(user, 10)
+

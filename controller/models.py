@@ -119,7 +119,7 @@ class Software(models.Model):
     softsize = models.IntegerField()
     softram = models.IntegerField()
     softtype = models.ForeignKey(TypeSofts, on_delete=models.CASCADE)
-    softhidden = models.BooleanField()  # Field name made lowercase.
+    softhidden = models.BooleanField(default=0)  # Field name made lowercase.
     softhiddenwith = models.BigIntegerField(default=0)  # Field name made lowercase.
 
 class HackedDatabase(models.Model):
@@ -136,3 +136,4 @@ class Processes(models.Model):
     logedit = models.TextField(default='')
     iptryhack = models.CharField(max_length=20, default='')
     completed = models.BooleanField(default=False)
+    softdownload = models.IntegerField(default=0)

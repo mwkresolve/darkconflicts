@@ -54,13 +54,9 @@
 </td>
 <td style="text-align: center">
 
-<form method="post">
+<form method="post" name="downloadsoft" >
+ <input type="submit" value="download" name='downsoftid={{ soft.id }}'>
     {% csrf_token %}
- <button>download</button>
-</form>
- <form method="post">
-    {% csrf_token %}
- <button>excluir</button>
 </form>
 {% endfor %}
 
