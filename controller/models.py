@@ -103,7 +103,7 @@ class HistUsersCurrent(models.Model):
     profileviews = models.PositiveIntegerField(default=0)  # Field name made lowercase.
 
     def __str__(self):
-        return f'log = {self.userid}, userid = {self.userid}'
+        return f' userid = {self.userid}, reputation = {self.reputation}'
 
 
 class TypeSofts(models.Model):
@@ -124,7 +124,7 @@ class Software(models.Model):
 
 class HackedDatabase(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
-    iphacked = models.CharField(unique=True, max_length=20)
+    iphacked = models.CharField(max_length=20)
 
 
 
