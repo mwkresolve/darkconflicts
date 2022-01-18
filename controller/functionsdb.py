@@ -9,6 +9,8 @@ def connect_ip_victim(user, ip):
     User.objects.filter(username=user).update(ipconnected=ip)
 
 def create_user_game(user):
+    User.objects.filter(username=user).update(gameip=ip_generator())
+    User.objects.filter(username=user)
     UserStats.objects.create(user=user)
     Hardware.objects.create(userid=user)
     HistUsersCurrent.objects.create(userid=user)

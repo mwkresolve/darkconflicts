@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class User(AbstractUser):
     bio = models.TextField(blank=True)
-    gamepass = models.CharField(max_length=10, default=pwd_generator())
+    gamepass = models.CharField(max_length=10, default='')
     gameip = models.CharField(max_length=20, default=ip_generator(), unique=True)
     premium = models.BooleanField(default=False)
     stats_game = models.BooleanField(default=False) # true if table depends created
