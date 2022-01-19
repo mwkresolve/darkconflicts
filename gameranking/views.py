@@ -8,7 +8,7 @@ class RankingPageView(TemplateView):
 
     def get(self, request):
         rank = dict()
-        rankusr = HistUsersCurrent.objects.all()
+        rankusr = HistUsersCurrent.objects.order_by('-reputation')
         for c in range(len(rankusr)):
             usr = rankusr[c].userid
             rank = rankusr[c].reputation

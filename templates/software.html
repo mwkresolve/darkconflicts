@@ -4,24 +4,36 @@
 
 
 {% block content %}
-
-<div style="width: 500px; height: 400px; overflow-y: scroll;">
-
 {% for soft in softwares %}
-{{soft.softname}}{% for type in typesofts %}
- {% if type.id == soft.softtype_id %}
- {{type}}
- {% endif %}
- {% endfor %}
+
+<table class="table table-cozy table-bordered table-striped table-software table-hover with-check" >
+<thead>
+<tr>
+<th></th>
+<th>Software name</th>
+<th>Version</th>
+<th class="hide-phone">Size</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
 
 
-<font color="orangered">{{ soft.softversion }}</font>
+<tr id="{{ soft.id }}" class="installed">
+<td>
 
- <font color="orangered">{{ soft.softsize }}</font>
-
+</td>
+<td>
+<b>{{ soft.softname }}</b>
+</td>
+<td>
+<font color="green">{{ soft.softversion }}</font>
+</td>
+<td class="hide-phone">
+<font color="green">{{ soft.softsize }}</font>
+</td>
 <td style="text-align: center">
-
-<form method="post">
+    <form method="post">
     {% csrf_token %}
  <button>download</button>
 </form>
@@ -29,9 +41,12 @@
     {% csrf_token %}
  <button>excluir</button>
 </form>
+</td>
+</tr>
+</tbody>
+</table>
 
 
+ {% endfor %}
 
-{% endfor %}
-    </div>
 {% endblock %}

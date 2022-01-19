@@ -7,13 +7,10 @@
     {% csrf_token %}
 </form>
 
-<div class="widget-title">
-<ul class="nav nav-tabs">
-</ul>
-</div>
-<div class="widget-content padding noborder">
-<div class="span9">
-<table class="table table-cozy table-bordered table-striped table-software table-hover with-check">
+
+{% for soft in softs_victim %}
+
+<table class="table table-cozy table-bordered table-striped table-software table-hover with-check" >
 <thead>
 <tr>
 <th></th>
@@ -24,40 +21,36 @@
 </tr>
 </thead>
 <tbody>
-{% for soft in softs_victim %}
+
 
 <tr id="{{ soft.id }}" class="installed">
 <td>
-<span class="he16-1 tip-top"></span>
+
 </td>
 <td>
-<b>{{soft.softname}}{% for type in typesofts %}
- {% if type.id == soft.softtype_id %}
- {{type}}
- {% endif %}
- {% endfor %}
-
-
-
-
-
-
-
-
-</b>
+<b>{{ soft.softname }}</b>
 </td>
 <td>
-<font color="orangered">{{ soft.softversion }}</font>
+<font color="green">{{ soft.softversion }}</font>
 </td>
 <td class="hide-phone">
- <font color="orangered">{{ soft.softsize }}</font>
+<font color="green">{{ soft.softsize }}</font>
 </td>
 <td style="text-align: center">
-
-<form method="post" name="downloadsoft" >
- <input type="submit" value="download" name='downsoftid={{ soft.id }}'>
+    <form method="post">
     {% csrf_token %}
+ <button>download</button>
 </form>
-{% endfor %}
+ <form method="post">
+    {% csrf_token %}
+ <button>excluir</button>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+ {% endfor %}
 
 {% endblock %}
