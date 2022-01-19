@@ -1,3 +1,5 @@
+
+
 {% load static %}
 <!DOCTYPE html>
 <html style="font-size: 16px;">
@@ -12,7 +14,9 @@
       <link rel="stylesheet" type="text/css" href="{% static 'css/pginicial.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 4.2.6, nicepage.com">
@@ -33,7 +37,7 @@
 
 
     <header>
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-3">
+        <nav class="navbar navbar-expand navbar-dark bg-dark mb-3" style="width: 100%; height: 50px;">
             <div class="container">
                 <a class="navbar-brand" >D4rk confl1cts</a>
                 <ul class="navbar-nav">
@@ -43,7 +47,7 @@
                         <font size="3"
                               face="verdana"
                               color="white">
-                                IP: {{ user.gameip }}
+
                                 </font>
                         <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
                     </li>
@@ -88,10 +92,13 @@
                     <div class="u-container-layout u-container-layout-3">
                       <p class="u-text u-text-default u-text-1">
                         <div style="width: 550px; height: 600px; overflow-y: scroll;">
+
                         {% block content %}
 
 
+
                         {% endblock %}
+
                         </div>
 
 
@@ -105,10 +112,24 @@
                   <div class="u-container-style u-group u-opacity u-opacity-55 u-shape-rectangle u-white u-group-2">
                     <div class="u-container-layout u-container-layout-5">
                       <h5 class="u-text u-text-default u-text-2">
-                          <div style="width: 200px; height: 600px; overflow-y: scroll;">
-                          news</br>news</br>news</br>news</br>news</br>news</br>news</br>news</br>
-                              news</br>news</br>news</br>news</br>news</br>news</br>news</br>
-                              news</br>news</br>news</br>news</br>news</br>news</br>news</br>
+                          <div style="width: 260px; height: 600px; overflow-y: scroll;">
+
+                              {% block menuright%}
+                              <p>INFO</p>
+                              <div class="infouser" style="border: 1px solid #000">
+                                  ip: {{ user.gameip }}
+                              </div>
+                              <p>tasks</p>
+                              <div class="infotask" style="border: 1px solid #000">
+                                  <div class="tasksmenu" style="width: 240px; height: 200px; overflow-y: scroll;">
+                              </div>
+
+
+
+
+
+                              {% endblock %}
+
                           </div>
 
 
@@ -131,7 +152,7 @@
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-2e8c"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
 {% endif %}
   {% if not user.is_authenticated %}
-       <main class="container">
+       <main class="container" style="width: 300px; height: 200px;">
         {% block all_auth %}
 
         {% endblock %}

@@ -4,7 +4,7 @@
 
 
 {% block content %}
-{% for soft in softwares %}
+
 
 <table class="table table-cozy table-bordered table-striped table-software table-hover with-check" >
 <thead>
@@ -16,7 +16,7 @@
 <th>Actions</th>
 </tr>
 </thead>
-<tbody>
+<tbody>{% for soft in softwares %}
 
 
 <tr id="{{ soft.id }}" class="installed">
@@ -43,10 +43,10 @@
 </form>
 </td>
 </tr>
-</tbody>
+</tbody> {% endfor %}
 </table>
 
 
- {% endfor %}
+
 
 {% endblock %}
