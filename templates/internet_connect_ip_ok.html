@@ -23,7 +23,7 @@
 <tbody>
 
 
-<tr id="{{ soft.id }}" class="installed">
+<tr id="downsoftid={{ soft.id }}" class="installed">
 <td>
 
 </td>
@@ -37,9 +37,9 @@
 <font color="green">{{ soft.softsize }}</font>
 </td>
 <td style="text-align: center">
-    <form method="post">
+    <form method="post" name="editlog">
     {% csrf_token %}
- <button>download</button>
+<input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
 </form>
  <form method="post">
     {% csrf_token %}

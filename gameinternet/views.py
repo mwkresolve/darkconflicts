@@ -31,6 +31,7 @@ def IpConnectView(request):
     ip_connect = info_user[0]['ipconnected']
     if request.method == "POST":
         for valor in request.POST:
+            print(request.POST)
             if 'downsoftid=' in valor:
                 # pend nao deixar baixar se nao estiver espaço suficiente
                 softid = valor.split('=')[1]
