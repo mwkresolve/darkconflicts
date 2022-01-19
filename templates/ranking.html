@@ -8,13 +8,31 @@
 
 
 
-    {% for inforank in context %}
-<td><center> </center></td>
-<td><a href="">{{ inforank.userid }}</a><span class="r-online"><span style="margin-left: 2px;" class="pull-right he16-ranking_online" title="Online now"></span></span></td>
-<td><center>{{ inforank.reputation }}</center></td>
-<p>
 
+
+    <table class="table table-cozy table-bordered table-striped table-hover with-check">
+<thead>
+<tr>
+<th>#</th>
+<th>User</th>
+<th>Reputation</th>
+<th>Hacked Database IPs</th>
+<th>Clan</th>
+</tr>
+</thead>
+<tbody>
+
+    {% for inforank in context %}
+<tr>
+<td><center>{{ inforank.index }} </center></td>
+<td>{{ inforank.userid }}</a></td>
+<td><center>{{ inforank.reputation }}</center></td>
+<td><center> </center></td>
+<td> </td>
+</tr>
 {% endfor %}
+</tbody>
+</table>
 
 
 {% endblock %}
