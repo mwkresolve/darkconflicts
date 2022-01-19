@@ -7,7 +7,12 @@ class RankingPageView(TemplateView):
     template_name = "ranking.html"
 
     def get(self, request):
+        rank = dict()
         rankusr = HistUsersCurrent.objects.all()
-        print(rankusr)
+        for c in range(len(rankusr)):
+            usr = rankusr[c].userid
+            rank = rankusr[c].reputation
+            print(usr)
+            print(rank)
 
-        return render(request, self.template_name, {'context':rankusr})
+        return render(request, self.template_name, {'context': rankusr})

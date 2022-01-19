@@ -4,34 +4,17 @@
 {% block content %}
 
 
-<div class="widget-content padding noborder center">
-<table class="table table-cozy table-bordered table-striped table-hover with-check">
-<thead>
-<tr>
-<th>#</th>
-<th>User</th>
-<th>Reputation</th>
-
-</tr>
-</thead>
-<tbody>
-<tr>
 
 
 
 
     {% for inforank in context %}
 <td><center> </center></td>
-<td><a href="">{{ inforank.userid }}</a><span class="r-online"><span style="margin-left: 10px;" class="pull-right he16-ranking_online" title="Online now"></span></span></td>
+<td><a href="">{{ inforank.userid }}</a><span class="r-online"><span style="margin-left: 2px;" class="pull-right he16-ranking_online" title="Online now"></span></span></td>
 <td><center>{{ inforank.reputation }}</center></td>
 <p>
-</tr>
+
 {% endfor %}
 
-
-</tbody>
-</table>
-</div>
-</div>
 
 {% endblock %}
