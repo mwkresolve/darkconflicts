@@ -5,6 +5,7 @@ from django.db.models import Max
 from django.shortcuts import redirect
 from gameinternet.views import hackip
 from controller.functionsdb import edit_my_log
+from controller.functionsdb import *
 
 def TasksView(request):
     print('chegou tasks')
@@ -61,6 +62,16 @@ def CompleteTask(request):
                             # download concluido
                             Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                             return HttpResponseRedirect("/software/")
+
+                if infos['action'] == 4: # del soft
+                    # retornar msg que soft foi deletado, criar condicao para ver se a pessoa já resetou o ip
+                    softdel = Software.objects.filter(id=infos['softdownload'])
+                    softdel.delete()
+                    update_reputation(request.user, 50)
+                    Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    return HttpResponseRedirect("/software/")
+                    
+                    
 
 
 

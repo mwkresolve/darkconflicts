@@ -120,6 +120,42 @@
                               <p>tasks</p>
                               <div class="infotask" style="border: 1px solid #000">
                                   <div class="tasksmenu" style="width: 240px; height: 200px; overflow-y: scroll;">
+
+
+
+                                  {% for task in user.get_tasks %}
+                                    
+
+                                          <font size="1">
+                                              {% now "Y-m-d H:i:s" as nowdate %}
+                                              action: {% if task.action == 1 %}
+                                               Edit local hosting</br>
+                                              {% elif task.action == 2 %}
+                                               Try hack ip {{ task.iptryhack }} </br>
+                                               {% elif task.action == 3 %}
+                                                  download soft {{task}}
+                                                                                             {% elif task.action == 4 %}
+                                                  delet soft
+
+                                              {% endif %}
+
+                                              {% if nowdate > task.timeend|date:"Y-m-d H:i:s" %}
+                                                  <form method="post" action="/taskcompleteid={{ task.id }} "
+                                                  >
+                                                      {% csrf_token %}
+                                                          <button>Complete</button>
+                                                  </form>
+
+                                              {% else %}
+                                              finish at : {{ task.timeend|date:"Y-m-d H:i:s" }}
+                                              {% endif %}
+                                            </font>
+                                  {% endfor %}
+
+
+
+
+
                                   </div></div>
                                                     <p>carteira</p>
                                <div class="infotask" style="border: 1px solid #000">

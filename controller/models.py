@@ -21,6 +21,11 @@ class User(AbstractUser):
         return self.username
 
 
+    def get_tasks(self):
+        return Processes.objects.filter(userid=self.id, completed=False).values()
+
+
+
 
 class UserStats(models.Model):
     user = models.OneToOneField(

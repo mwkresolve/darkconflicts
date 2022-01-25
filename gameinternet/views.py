@@ -31,13 +31,20 @@ def IpConnectView(request):
     ip_connect = info_user[0]['ipconnected']
     if request.method == "POST":
         for valor in request.POST:
-            print(request.POST)
             if 'downsoftid=' in valor:
                 # pend nao deixar baixar se nao estiver espaço suficiente
                 softid = valor.split('=')[1]
                 endtime = datetime.now() + timedelta(seconds=10)
                 Processes.objects.create(userid=request.user,
                                          action=3,
+                                         timestart=datetime.now(),
+                                         timeend=endtime, softdownload=softid)
+                return HttpResponseRedirect("/task/")
+            if 'delsoftid=' in valor:
+                softid = valor.split('=')[1]
+                endtime = datetime.now() + timedelta(seconds=10)
+                Processes.objects.create(userid=request.user,
+                                         action=4,
                                          timestart=datetime.now(),
                                          timeend=endtime, softdownload=softid)
                 return HttpResponseRedirect("/task/")
@@ -121,7 +128,6 @@ def IpView(request):
         pwvictim = ''
         for info in info_victim:
             if verif_in_db > 0:
-                print('firstip')
                 pwvictim = info['gamepass']
             if firstip:
                 pwvictim = info['gamepass']

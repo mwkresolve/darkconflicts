@@ -40,11 +40,10 @@
     <form method="post" name="editlog">
     {% csrf_token %}
 <input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
-</form>
- <form method="post">
+<td style="text-align: center">
+    <form method="post" name="delsoft">
     {% csrf_token %}
- <button>excluir</button>
-</form>
+<input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
 </td>
 </tr>
 </tbody>
